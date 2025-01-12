@@ -49,6 +49,7 @@
 			}
 		});
 
+		var SetBackgroundColor;
 		var GetText;
 		var SetText;
 		var SetTheme;
@@ -232,8 +233,7 @@
 
 			GetProposals = function () {
 				return Proposals;
-			}
-
+			}		
 
 			OnDidChangeContent = function (callback) {
 				return editor.onDidChangeModelContent((event) => {
@@ -363,6 +363,65 @@
 				var Text = GetText();
 				SetText(Text);
 				editor.trigger('keyboard', 'type', { text: Text });
+			}
+
+			SetBackgroundColor = function(str) {
+							monaco.editor.defineTheme('Dark', {
+                base: 'vs-dark',
+                inherit: true,
+ 			rules: [
+	{ "token": "variable.language.self", "foreground": "ffffff" },
+        { "token": "variable.parameter.variadic", "foreground": "ffffff" },
+        { "token": "variable.parameter.function", "foreground": "a9c4f5" },
+        { "token": "variable.other.constant", "foreground": "ffffff" },
+        { "token": "variable.property", "foreground": "ffffff" },
+        { "token": "variable.object.property", "foreground": "ffffff" },
+        { "token": "keyword", "foreground": "6495ed" },
+        { "token": "keyword.local", "foreground": "6495ed", "fontStyle": "bold" },
+        { "token": "keyword.operator", "foreground": "6495ed" },
+        { "token": "keyword.operator.type.annotation", "foreground": "6495ed" },
+        { "token": "keyword.operator.typedef.annotation", "foreground": "6495ed" },
+        { "token": "keyword.control.export", "foreground": "6495ed", "fontStyle": "bold" },
+        { "token": "operator", "foreground": "ffffff" },
+        { "token": "operator.type", "foreground": "ffffff" },
+        { "token": "operator.special", "foreground": "ffffff" },
+        { "token": "entity.name.type.alias", "foreground": "ffffff" },
+        { "token": "entity.name.function", "foreground": "c0c0c0" },
+        { "token": "global", "foreground": "1f66e5", "fontStyle": "bold" },
+        { "token": "storage.type", "foreground": "ffffff" },
+        { "token": "comment", "foreground": "999999", "fontStyle": "italic" },
+        { "token": "comment.highlight.title", "foreground": "999999", "fontStyle": "italic" },
+        { "token": "comment.highlight.name", "foreground": "999999", "fontStyle": "italic" },
+        { "token": "comment.delimiter.modifier", "foreground": "999999", "fontStyle": "italic" },
+        { "token": "comment.highlight.modifier", "foreground": "999999", "fontStyle": "italic" },
+        { "token": "comment.highlight.descriptor", "foreground": "999999", "fontStyle": "italic" },
+        { "token": "delimiter.longstring", "foreground": "ffffff" },
+        { "token": "delimiter.bracket", "foreground": "ffffff" },
+        { "token": "delimiter.array", "foreground": "ffffff" },
+        { "token": "delimiter.parenthesis", "foreground": "ffffff" },
+        { "token": "delimiter", "foreground": "ffffff" },
+        { "token": "string", "foreground": "a9c4f5" },
+        { "token": "longstring", "foreground": "a9c4f5" },
+        { "token": "string.delimeter", "foreground": "a9c4f5" },
+        { "token": "string.escape", "foreground": "a9c4f5" },
+        { "token": "punctuation.separator.arguments", "foreground": "ffffff" },
+        { "token": "punctuation.separator.parameter", "foreground": "ffffff" },
+        { "token": "punctuation.separator.table", "foreground": "ffffff" },
+        { "token": "punctuation.definition.block", "foreground": "ffffff" },
+        { "token": "punctuation.definition.parameters", "foreground": "ffffff" },
+        { "token": "punctuation.definition.typeparameters", "foreground": "ffffff" },
+        { "token": "constant.language", "foreground": "a092f3" },
+        { "token": "number", "foreground": "f08080" },
+        { "token": "constants", "foreground": "ffffff" },
+        { "token": "support.function", "foreground": "a092f3" },
+        { "token": "support.function.library", "foreground": "ffffff" },
+        { "token": "support.type", "foreground": "ffffff" },
+                	],
+                colors: {
+		    'editor.background': str,
+                    'minimap.background': '#0d0d0d'
+                }
+            });
 			}
 
 		AddIntellisense = function(l, k, d, i) {
