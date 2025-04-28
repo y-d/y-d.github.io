@@ -59,7 +59,8 @@ define(["require", "exports"], function (require, exports) {
             'pcall', 'print', 'rawequal', 'rawget', 'rawset', 'select', 'setfenv',
             'setmetatable', 'tonumber', 'tostring', 'type', 'unpack', 'xpcall', '_G',
             'shared', 'delay', 'require', 'spawn', 'tick', 'typeof', 'wait', 'warn',
-            'game', 'Enum', 'script', 'workspace', 'printidentity'
+            'game', 'Enum', 'script', 'workspace', 'printidentity','getrawmetatable',
+            'setrawmetatable','hookmetamethod','hookfunction','getgc','cache','debug'
         ],
         operators: [
             '+', '-', '*', '/', '%', '^', '#', '==', '~=', '<=', '>=', '<', '>', '=',
