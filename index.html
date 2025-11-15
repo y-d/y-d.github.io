@@ -231,6 +231,7 @@
             font-size: 1.25rem;
             font-weight: bold;
             color: white;
+            text-shadow: 0 0 20px rgba(124, 103, 68, 0.6);
         }
 
         nav button {
@@ -247,12 +248,15 @@
             background-color: #7c6744;
             color: white;
             transition: all 0.25s ease-in-out;
+            position: relative;
         }
 
         .brown-btn:hover {
             background-color: rgb(161, 130, 70);
             border-color: #7b6650;
             transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(124, 103, 68, 0.6),
+                        0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
         .brown-btn svg {
@@ -285,6 +289,7 @@
             border-radius: 20px;
             padding: 5px 15px;
             margin-bottom: 20px;
+            box-shadow: 0 0 15px rgba(124, 103, 68, 0.3);
         }
 
         .emoji {
@@ -305,6 +310,7 @@
 
         .headline .highlight {
             color: #7c6744;
+            text-shadow: 0 0 25px rgba(124, 103, 68, 0.7);
         }
 
         .description {
@@ -327,6 +333,8 @@
             background-color: rgb(161, 130, 70);
             border-color: #7b6650;
             transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(124, 103, 68, 0.8),
+                        0 5px 20px rgba(0, 0, 0, 0.4);
         }
 
         .icon-clipboard {
@@ -359,20 +367,37 @@
             content: '';
             position: absolute;
             top: 0;
-            left: 0;
+            left: -100%;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at top right, rgba(42, 54, 171, 0.1), transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
             background: linear-gradient(
                 90deg,
                 transparent,
-                rgba(42, 54, 171, 0.0.5),
+                rgba(124, 103, 68, 0.3),
                 transparent
             );
             transition: left 0.5s ease; 
             z-index: 1;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 16px;
+            opacity: 0;
+            box-shadow: 0 0 30px rgba(124, 103, 68, 0.6),
+                        inset 0 0 30px rgba(124, 103, 68, 0.2);
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .card > * {
+            position: relative;
+            z-index: 2;
         }
 
         .card:hover {
@@ -383,12 +408,16 @@
         }
 
         .card:hover::before {
-            opacity: 1;
             left: 100%;
+        }
+
+        .card:hover::after {
+            opacity: 1;
         }
 
         .card svg {
             color: #7c6744;
+            filter: drop-shadow(0 0 8px rgba(124, 103, 68, 0.6));
         }
 
         .prices {
@@ -411,6 +440,22 @@
             flex-direction: column;
             align-items: center;
             transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .price::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 8px;
+            opacity: 0;
+            box-shadow: 0 0 40px rgba(124, 103, 68, 0.6),
+                        inset 0 0 40px rgba(124, 103, 68, 0.1);
+            transition: opacity 0.3s ease;
+            pointer-events: none;
         }
 
         .price:hover {
@@ -419,6 +464,10 @@
             background: rgba(171, 126, 42, 0.05);
             border: 2px solid rgba(171, 111, 42, 0.5);
             transition: all 0.3s ease;
+        }
+
+        .price:hover::after {
+            opacity: 1;
         }
 
         .features li {
@@ -430,24 +479,31 @@
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
             color: #fff;
+            position: relative;
+            z-index: 1;
         }
         
         .price-am {
             font-size: 1.25rem;
             font-weight: 700;
             color: #fff;
+            position: relative;
+            z-index: 1;
         }
 
         .amount {
             font-size: 2.5rem;
             font-weight: 700;
             color: #fff; 
+            text-shadow: 0 0 20px rgba(124, 103, 68, 0.5);
         }
 
         .card-content ul {
             margin: 1rem 0;
             margin-right: 10px;
             list-style: none;
+            position: relative;
+            z-index: 1;
         }
 
         .card-content li {
@@ -500,6 +556,12 @@
             border: 2px solid rgba(42, 54, 171, 0.1);
             border-radius: 12px;
             overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(124, 103, 68, 0.3);
+            box-shadow: 0 0 20px rgba(124, 103, 68, 0.2);
         }
 
         .faq-question {
@@ -522,11 +584,12 @@
             background: rgba(42, 54, 171, 0.1);
         }
 
-        .faq-question i {
+        .faq-question svg {
             transition: transform 0.3s ease;
+            filter: drop-shadow(0 0 5px rgba(124, 103, 68, 0.5));
         }
 
-        .faq-question.active i {
+        .faq-question.active svg {
             transform: rotate(180deg);
         }
 
