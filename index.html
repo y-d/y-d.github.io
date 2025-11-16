@@ -8,14 +8,16 @@
 </head>
 <body>
     <div class="particles" id="particles"></div>
-    <button class="star-btn" id="star-btn" title="Add to favorites">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-        </svg>
-    </button>
+
+    <div class="copy-tooltip" id="copy-tooltip">Copied!</div>
 
     <nav>
         <span class="logo">Purge</span>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#faq">FAQ</a>
+        </div>
         <button class="brown-btn" id="dc-btn">
             <svg role="img" width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <title>Discord</title>
@@ -46,7 +48,19 @@
                 </svg>
                 Copy Script
             </button>
-            <h1 class="headline" style="margin-top: 10vh;">
+
+            <div class="video-section" style="margin-top: 10vh;">
+                <h1 class="headline">
+                    See
+                    <span class="highlight">Purge</span>
+                    in Action
+                </h1>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <h1 class="headline" style="margin-top: 10vh;" id="features">
                 Why use
                 <span class="highlight">Purge?</span>
             </h1>
@@ -72,7 +86,7 @@
                     <p>No need to change loadstrings it will always be the same!</p>
                 </div>
             </div>
-            <h1 class="headline" style="margin-top: 10vh;">
+            <h1 class="headline" style="margin-top: 10vh;" id="pricing">
                 What does it
                 <span class="highlight">take</span>
                 to make
@@ -122,7 +136,31 @@
                     <button class="brown-btn" id="copy-btn1">Copy and use now!</button>
                 </div>
             </div>
+
             <h1 class="headline" style="margin-top: 10vh;">
+                What
+                <span class="highlight">Users</span>
+                are Saying
+            </h1>
+            <div class="testimonials">
+                <div class="testimonial">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"Best script I've ever used! The interface is so clean and easy to navigate. Highly recommend!"</p>
+                    <p class="reviewer">- Alex_Gaming</p>
+                </div>
+                <div class="testimonial">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"Finally a script that actually works! No lag, no bugs, just pure performance. Worth every penny!"</p>
+                    <p class="reviewer">- ProPlayer2024</p>
+                </div>
+                <div class="testimonial">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"The auto-update feature is a game changer. I never have to worry about outdated scripts anymore!"</p>
+                    <p class="reviewer">- ScriptMaster</p>
+                </div>
+            </div>
+
+            <h1 class="headline" style="margin-top: 10vh;" id="faq">
                 What do
                 <span class="highlight">People</span>
                 ask about 
@@ -184,45 +222,24 @@
             }
         }
         createParticles();
-        const starBtn = document.getElementById('star-btn');
-        let isFavorited = false;
 
-        starBtn.addEventListener('click', () => {
-            isFavorited = !isFavorited;
-            starBtn.classList.toggle('favorited');
-            if (isFavorited) {
-                createStarBurst();
-            }
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
         });
 
-        function createStarBurst() {
-            const rect = starBtn.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-
-            for (let i = 0; i < 12; i++) {
-                const star = document.createElement('div');
-                star.className = 'burst-star';
-                star.innerHTML = '⭐';
-                document.body.appendChild(star);
-
-                const angle = (i / 12) * Math.PI * 2;
-                const distance = 100;
-                const endX = centerX + Math.cos(angle) * distance;
-                const endY = centerY + Math.sin(angle) * distance;
-
-                star.style.left = centerX + 'px';
-                star.style.top = centerY + 'px';
-
-                setTimeout(() => {
-                    star.style.transform = `translate(${endX - centerX}px, ${endY - centerY}px) scale(0) rotate(720deg)`;
-                    star.style.opacity = '0';
-                }, 10);
-
-                setTimeout(() => {
-                    star.remove();
-                }, 1000);
-            }
+        function showCopyTooltip(button) {
+            const tooltip = document.getElementById('copy-tooltip');
+            const rect = button.getBoundingClientRect();
+            tooltip.style.left = rect.left + rect.width / 2 + 'px';
+            tooltip.style.top = rect.top - 40 + 'px';
+            tooltip.classList.add('show');
+            setTimeout(() => {
+                tooltip.classList.remove('show');
+            }, 2000);
         }
 
         document.querySelectorAll('.faq-question').forEach(button => {
@@ -239,8 +256,14 @@
             }) 
         })
 
-        document.getElementById("copy-btn").addEventListener('click', GetScript);
-        document.getElementById("copy-btn1").addEventListener('click', GetScript);
+        document.getElementById("copy-btn").addEventListener('click', function() {
+            GetScript();
+            showCopyTooltip(this);
+        });
+        document.getElementById("copy-btn1").addEventListener('click', function() {
+            GetScript();
+            showCopyTooltip(this);
+        });
         document.getElementById("dc-btn").addEventListener('click', GetLink);
         document.getElementById("dc-btn1").addEventListener('click', GetLink);
 
@@ -259,6 +282,7 @@
             margin: 0;
             background-color: rgb(15, 15, 15);
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
         body {
@@ -304,80 +328,25 @@
             }
         }
 
-        .star-btn {
+        .copy-tooltip {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            border: 2px solid rgba(124, 103, 68, 0.5);
-            background: rgba(20, 20, 20, 0.9);
-            backdrop-filter: blur(10px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 1000;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .star-btn svg {
-            stroke: rgba(124, 103, 68, 0.8);
-            transition: all 0.3s ease;
-        }
-
-        .star-btn:hover {
-            transform: scale(1.1) rotate(15deg);
-            border-color: rgba(124, 103, 68, 0.8);
-            box-shadow: 0 0 30px rgba(124, 103, 68, 0.5);
-        }
-
-        .star-btn:hover svg {
-            stroke: #b8945f;
-        }
-
-        .star-btn.favorited {
             background: linear-gradient(135deg, #7c6744 0%, #b8945f 100%);
-            border-color: #b8945f;
-            box-shadow: 0 0 40px rgba(184, 148, 95, 0.6);
-            animation: star-pulse 1.5s ease-in-out infinite;
-        }
-
-        .star-btn.favorited svg {
-            fill: #fff;
-            stroke: #fff;
-            animation: star-rotate 0.5s ease;
-        }
-
-        @keyframes star-pulse {
-            0%, 100% {
-                box-shadow: 0 0 40px rgba(184, 148, 95, 0.6);
-            }
-            50% {
-                box-shadow: 0 0 60px rgba(184, 148, 95, 0.9);
-            }
-        }
-
-        @keyframes star-rotate {
-            0% {
-                transform: rotate(0deg) scale(1);
-            }
-            50% {
-                transform: rotate(180deg) scale(1.3);
-            }
-            100% {
-                transform: rotate(360deg) scale(1);
-            }
-        }
-
-        .burst-star {
-            position: fixed;
-            font-size: 20px;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
             pointer-events: none;
-            z-index: 9999;
-            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            opacity: 0;
+            transform: translate(-50%, -10px);
+            transition: all 0.3s ease;
+            z-index: 10000;
+            box-shadow: 0 4px 15px rgba(124, 103, 68, 0.5);
+        }
+
+        .copy-tooltip.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
         }
 
         button {
@@ -414,9 +383,38 @@
             text-shadow: 0 0 20px rgba(124, 103, 68, 0.6);
         }
 
-        nav button {
+        .nav-links {
+            display: flex;
+            gap: 2rem;
             margin-left: auto;
-            margin-right: 4rem;
+            margin-right: 2rem;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #b8945f;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #7c6744;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         nav button svg {
@@ -521,6 +519,80 @@
 
         .icon-clipboard {
             margin-right: 10px;
+        }
+
+        .video-section {
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid rgba(124, 103, 68, 0.3);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(124, 103, 68, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .video-container:hover {
+            border-color: rgba(124, 103, 68, 0.6);
+            box-shadow: 0 0 40px rgba(124, 103, 68, 0.5);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            width: 100%;
+            padding: 2rem 0;
+        }
+
+        .testimonial {
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid rgba(124, 103, 68, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .testimonial:hover {
+            border-color: rgba(124, 103, 68, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(124, 103, 68, 0.3);
+        }
+
+        .stars {
+            font-size: 24px;
+            color: #ffd700;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .review-text {
+            font-size: 15px;
+            color: #d3d3d3;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .reviewer {
+            font-size: 14px;
+            color: #7c6744;
+            font-weight: 600;
         }
 
         .cards {
@@ -802,6 +874,9 @@
                 width: auto;
                 padding: 5px 10px;
             }
+            .nav-links {
+                display: none;
+            }
             .card {
                 width: 100%; 
                 max-width: 250px; 
@@ -827,15 +902,8 @@
                 width: 90%;
                 padding: 2rem;
             }
-            .star-btn {
-                width: 50px;
-                height: 50px;
-                bottom: 20px;
-                right: 20px;
-            }
-            .star-btn svg {
-                width: 20px;
-                height: 20px;
+            .testimonials {
+                grid-template-columns: 1fr;
             }
         }
 
