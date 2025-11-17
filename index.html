@@ -13,7 +13,7 @@
     <div class="copy-tooltip" id="copy-tooltip">Copied!</div>
 
     <nav>
-        <span class="logo">Purge</span>
+        <span class="logo" id="logo-btn">Purge</span>
         <div class="nav-links">
             <a href="#features">Features</a>
             <a href="#pricing">Pricing</a>
@@ -224,12 +224,18 @@
             }
         }
         createParticles();
-
-        document.querySelectorAll('.nav-links a').forEach(link => {
+        document.querySelectorAll('nav a').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
-                const target = document.querySelector(link.getAttribute('href'));
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                const href = link.getAttribute('href');
+                if (href === '#') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
             });
         });
 
@@ -375,6 +381,13 @@
             font-weight: bold;
             color: white;
             text-shadow: 0 0 20px rgba(124, 103, 68, 0.6);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        nav span.logo:hover {
+            color: #b8945f;
+            text-shadow: 0 0 30px rgba(124, 103, 68, 0.9);
         }
 
         .nav-links {
