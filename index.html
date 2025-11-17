@@ -42,13 +42,6 @@
                 We are always trying the best<br>
                 for your experience in the west
             </p>
-            <button class="copy-btn" id="copy-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-clipboard">
-                    <rect width="8" height="4" x="8" y="2" rx="1" ry="1"/>
-                    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
-                </svg>
-                Get script!
-            </button>
 
             <div class="video-section">
                 <h1 class="headline">
@@ -127,15 +120,22 @@
                         <ul class="features">
                             <li>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-icon lucide-check"><path d="M20 6 9 17l-5-5"/></svg>
-                                Key System
+                                Requires Key System
                             </li>
                             <li>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-icon lucide-check"><path d="M20 6 9 17l-5-5"/></svg>
                                 Normal Executor Support
                             </li>
                         </ul>
+                        <div class="key-notice">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                            You'll need to complete a key system to use the free version
+                        </div>
                     </div>
-                    <button class="brown-btn" id="copy-btn1">Get script!</button>
+                    <div class="button-group">
+                        <button class="brown-btn" id="copy-btn1">Copy Script</button>
+                        <button class="secondary-btn" id="key-btn">Get Key</button>
+                    </div>
                 </div>
             </div>
 
@@ -258,22 +258,23 @@
             });
         });
 
-        document.getElementById("copy-btn").addEventListener('click', function() {
-            GetScript();
-            showCopyTooltip(this);
-        });
         document.getElementById("copy-btn1").addEventListener('click', function() {
             GetScript();
             showCopyTooltip(this);
         });
         document.getElementById("dc-btn").addEventListener('click', GetLink);
         document.getElementById("dc-btn1").addEventListener('click', GetLink);
+        document.getElementById("key-btn").addEventListener('click', GetKey);
 
         function GetScript() {
             navigator.clipboard.writeText('loadstring(game:HttpGet("https://raw.githubusercontent.com/x7dJJ9vnFH23/Maintained-Fun/main/FUNC/Loader.lua", true))()');
         }
 
         function GetLink() {
+            window.open('https://discord.gg/purgehub', '_blank');
+        }
+
+        function GetKey() {
             window.open('https://discord.gg/purgehub', '_blank');
         }
     </script>
@@ -587,19 +588,17 @@
         .card svg {
             color: #7c6744;
             margin-bottom: 1rem;
-            width: 32px;
-            height: 32px;
         }
 
         .card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
         }
 
         .card p {
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: #d3d3d3;
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
         .prices {
@@ -695,6 +694,48 @@
             flex-shrink: 0;
         }
 
+        .key-notice {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            background: rgba(124, 103, 68, 0.1);
+            border: 1px solid rgba(124, 103, 68, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: #d3d3d3;
+            line-height: 1.5;
+        }
+
+        .key-notice svg {
+            color: #7c6744;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            width: 100%;
+        }
+
+        .secondary-btn {
+            border: 2px solid #5a4d33;
+            background-color: transparent;
+            color: #7c6744;
+            transition: all 0.25s ease-in-out;
+            font-weight: 600;
+        }
+
+        .secondary-btn:hover {
+            background-color: rgba(124, 103, 68, 0.2);
+            border-color: #7c6744;
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(124, 103, 68, 0.4);
+        }
+
         .testimonials {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -741,7 +782,7 @@
         }
 
         .faq {
-            max-width: 1000px;
+            max-width: 800px;
             margin: 3rem auto;
             padding: 0 1rem;
         }
@@ -749,13 +790,13 @@
         .faq-grid {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 1rem;
         }
 
         .faq-item {
             background: rgba(255, 255, 255, 0.02);
             border: 2px solid rgba(42, 54, 171, 0.1);
-            border-radius: 16px;
+            border-radius: 12px;
             overflow: hidden;
             transition: all 0.3s ease;
         }
@@ -767,14 +808,14 @@
 
         .faq-question {
             width: 100%;
-            padding: 2rem;
+            padding: 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             background: none;
             border: none;
             color: white;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -788,8 +829,6 @@
         .faq-question svg {
             transition: transform 0.3s ease;
             flex-shrink: 0;
-            width: 28px;
-            height: 28px;
         }
 
         .faq-question.active svg {
@@ -800,18 +839,18 @@
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease, padding 0.3s ease;
-            padding: 0 2rem;
+            padding: 0 1.5rem;
         }
 
         .faq-answer.active {
-            max-height: 250px;
-            padding: 0 2rem 2rem;
+            max-height: 200px;
+            padding: 0 1.5rem 1.5rem;
         }
 
         .faq-answer p {
-            font-size: 1.05rem;
+            font-size: 0.95rem;
             color: #d3d3d3;
-            line-height: 1.7;
+            line-height: 1.6;
             margin: 0;
         }
 
