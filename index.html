@@ -224,17 +224,16 @@
             }
         }
         createParticles();
-        document.querySelectorAll('nav a').forEach(link => {
+        document.getElementById('logo-btn').addEventListener('click', () => {
+            window.location.href = 'https://y-d.github.io/';
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
-                const href = link.getAttribute('href');
-                if (href === '#') {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                } else {
-                    const target = document.querySelector(href);
-                    if (target) {
-                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
         });
@@ -526,7 +525,7 @@
         }
 
         .video-section {
-            margin-top: 10vh;
+            margin-top: 6vh;
             width: 100%;
         }
 
@@ -569,6 +568,10 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
         }
 
         .card::before {
