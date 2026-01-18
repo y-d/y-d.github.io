@@ -17,7 +17,6 @@
 </head>
 <body>
     <div class="particles" id="particles"></div>
-    <div class="glow-cursor" id="glow-cursor"></div>
 
     <div class="copy-tooltip" id="copy-tooltip">Copied!</div>
 
@@ -297,37 +296,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // Glow cursor effect
-        const glowCursor = document.getElementById('glow-cursor');
-        let isTouchDevice = false;
-
-        document.addEventListener('mousemove', (e) => {
-            if (!isTouchDevice) {
-                glowCursor.style.left = e.clientX + 'px';
-                glowCursor.style.top = e.clientY + 'px';
-                glowCursor.style.opacity = '1';
-            }
-        });
-
-        document.addEventListener('touchmove', (e) => {
-            isTouchDevice = true;
-            if (e.touches.length > 0) {
-                glowCursor.style.left = e.touches[0].clientX + 'px';
-                glowCursor.style.top = e.touches[0].clientY + 'px';
-                glowCursor.style.opacity = '1';
-            }
-        });
-
-        document.addEventListener('mouseleave', () => {
-            if (!isTouchDevice) {
-                glowCursor.style.opacity = '0';
-            }
-        });
-
-        document.addEventListener('touchend', () => {
-            glowCursor.style.opacity = '0';
-        });
-
         // Add glow effect to interactive elements on touch
         const interactiveElements = document.querySelectorAll('button, a, .card, .price, .testimonial, .faq-question');
         interactiveElements.forEach(element => {
@@ -418,19 +386,6 @@
             margin: 0;
             position: relative;
             color: white;
-        }
-
-        .glow-cursor {
-            position: fixed;
-            width: 40px;
-            height: 40px;
-            border: 2px solid #D4AF37;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.6), inset 0 0 20px rgba(212, 175, 55, 0.3);
-            transform: translate(-50%, -50%);
-            opacity: 0;
         }
 
         .particles {
@@ -1047,10 +1002,6 @@
             }
 
             .nav-links {
-                display: none;
-            }
-
-            .glow-cursor {
                 display: none;
             }
 
