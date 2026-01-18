@@ -17,6 +17,7 @@
 </head>
 <body>
     <div class="particles" id="particles"></div>
+    <div class="glow-cursor" id="glow-cursor"></div>
 
     <div class="copy-tooltip" id="copy-tooltip">Copied!</div>
 
@@ -296,6 +297,24 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
+        // Glow cursor effect
+        const glowCursor = document.getElementById('glow-cursor');
+        document.addEventListener('mousemove', (e) => {
+            glowCursor.style.left = e.clientX + 'px';
+            glowCursor.style.top = e.clientY + 'px';
+        });
+
+        // Add glow effect to interactive elements on touch
+        const interactiveElements = document.querySelectorAll('button, a, .card, .price, .testimonial, .faq-question');
+        interactiveElements.forEach(element => {
+            element.addEventListener('touchstart', function() {
+                this.classList.add('touch-glow');
+            });
+            element.addEventListener('touchend', function() {
+                this.classList.remove('touch-glow');
+            });
+        });
+
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -375,6 +394,18 @@
             margin: 0;
             position: relative;
             color: white;
+        }
+
+        .glow-cursor {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 2px solid #D4AF37;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.6), inset 0 0 20px rgba(212, 175, 55, 0.3);
+            transform: translate(-50%, -50%);
         }
 
         .particles {
@@ -977,12 +1008,24 @@
             margin: 0;
         }
 
+        .touch-glow {
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.8), 0 0 60px rgba(212, 175, 55, 0.5) !important;
+        }
+
+        button:active {
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.8), 0 0 60px rgba(212, 175, 55, 0.5) !important;
+        }
+
         @media (max-width: 768px) {
             nav {
                 padding: 0 1rem;
             }
 
             .nav-links {
+                display: none;
+            }
+
+            .glow-cursor {
                 display: none;
             }
 
@@ -1025,6 +1068,10 @@
     
     <script src="https://pl28379941.effectivegatecpm.com/20/9e/14/209e14caae72fbe3fdf9d66cd1dce4e3.js"></script>
     <script src="https://pl28380027.effectivegatecpm.com/62/c9/4f/62c94f7c8773ec82bd6f45f7c479be70.js"></script>
+    
+    <div style="text-align: center; padding: 2rem; color: #a3a3a3; font-size: 14px; margin-top: 2rem; border-top: 1px solid rgba(212, 175, 55, 0.1);">
+        <p>Credits to <span style="color: #D4AF37; font-weight: 600;">ra4o</span> for the amazing design and development</p>
+    </div>
     
 </body>
 </html>
