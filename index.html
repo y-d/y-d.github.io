@@ -844,14 +844,15 @@
         .testimonials {
             display: flex;
             gap: 2rem;
-            width: calc(100vw - 4rem);
+            width: 100%;
+            max-width: calc(100vw - 4rem);
             position: relative;
             overflow: hidden;
             padding: 3rem 0;
             margin: 3rem 0;
-            margin-left: -2rem;
-            padding-left: 2rem;
-            padding-right: 2rem;
+            margin-left: 0;
+            padding-left: 0;
+            padding-right: 0;
         }
 
         .testimonials-track {
@@ -996,41 +997,50 @@
             box-shadow: 0 0 30px rgba(212, 175, 55, 0.8), 0 0 60px rgba(212, 175, 55, 0.5) !important;
         }
 
-        @media (max-width: 768px) {
-            nav {
-                padding: 0 1rem;
-            }
+@media (max-width: 768px) {
+    nav {
+        padding: 0 1rem;
+    }
 
-            .nav-links {
-                display: none;
-            }
+    .nav-links {
+        display: none;
+    }
 
-            .headline {
-                font-size: 32px;
-            }
+    .headline {
+        font-size: 32px;
+    }
 
-            .description {
-                font-size: 16px;
-            }
+    .description {
+        font-size: 16px;
+    }
 
-            .cards {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
+    .cards {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
 
-            .prices {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
+    .prices {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
 
-            .testimonials {
-                grid-template-columns: 1fr;
-            }
+    .testimonials {
+        width: 100%;
+        max-width: 100%;
+        margin-left: 0;
+        gap: 1rem;
+    }
 
-            .image-container {
-                max-width: 100%;
-            }
-        }
+    .testimonial {
+        min-width: 280px;
+        padding: 2rem 1.5rem;
+        min-height: 250px;
+    }
+
+    .image-container {
+        max-width: 100%;
+    }
+}
 
 @media (min-width: 769px) and (max-width: 1024px) {
             .cards {
